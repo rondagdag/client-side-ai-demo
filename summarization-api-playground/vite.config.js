@@ -6,5 +6,9 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  base: '',
+  base: '/summarization-api-playground/dist/',
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets'
+  }
 })
