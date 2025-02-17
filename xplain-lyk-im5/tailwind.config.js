@@ -5,8 +5,15 @@ module.exports = {
     "./index.html",
   ],
   theme: {
-    extend: {},
+    extend: {
+      spacing: {
+        'explanation': '100px'
+      }
+    },
   },
+  safelist: [
+    'min-h-explanation'
+  ],
   plugins: [],
 }
 

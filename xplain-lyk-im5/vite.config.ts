@@ -7,7 +7,6 @@ const DRIVE_LETTER_REGEX = /^[a-z]:/i
 
 export default defineConfig({
   plugins: [react({
-    fastRefresh: true,
     jsxRuntime: 'automatic',
   })],
   resolve: {
@@ -19,7 +18,7 @@ export default defineConfig({
     outDir: 'extension/side-panel',
     rollupOptions: {
       output: {
-        sanitizeFileName(name) {
+        sanitizeFileName(name: string) {
           const match = DRIVE_LETTER_REGEX.exec(name)
           const driveLetter = match ? match[0] : ''
           return (

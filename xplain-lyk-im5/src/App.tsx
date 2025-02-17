@@ -60,7 +60,7 @@ function App() {
         <label className="block text-sm font-medium mb-2" htmlFor="explanation">
           Explanation
         </label>
-        <div className="border p-2 rounded min-h-[100px]">
+        <div className="border p-2 rounded h-24">
           {explanation}
         </div>
       </div>

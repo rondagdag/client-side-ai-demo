@@ -57,10 +57,6 @@ label {
   color: #fff;
 }
 
-.min-h-[100px] {
-  min-height: 100px;
-}
-
 .mb-4 {
   margin-bottom: 20px;
 }
