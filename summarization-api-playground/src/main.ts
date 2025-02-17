@@ -19,37 +19,37 @@ const summarizationUnsupportedDialog = document.querySelector('#summarization-un
 const summarizationUnavailableDialog = document.querySelector('#summarization-unavailable') as HTMLDivElement;
 const output = document.querySelector('#output') as HTMLDivElement;
 
+let selectionTimeout: number | undefined = undefined;
+
+// Function to handle text selection with debouncing
+const handleSelection = () => {
+  clearTimeout(selectionTimeout);
+  selectionTimeout = setTimeout(() => {
+    const selectedText = window.getSelection()?.toString().trim();
+    if (selectedText) {
+      inputTextArea.value = selectedText;
+      characterCountSpan.textContent = selectedText.length.toString();
+      if (selectedText.length > MAX_MODEL_CHARS) {
+        characterCountSpan.classList.add('tokens-exceeded');
+        characterCountExceededSpan.classList.remove('hidden');
+      } else {
+        characterCountSpan.classList.remove('tokens-exceeded');
+        characterCountExceededSpan.classList.add('hidden');
+      }
+      scheduleSummarization();
+    }
+  }, 500); // Wait 500ms after selection ends
+};
+
+document.addEventListener('mouseup', handleSelection);
+document.addEventListener('keyup', (e) => {
+  if (e.key === 'Shift' || e.key === 'Meta' || e.key === 'Control') {
+    handleSelection();
+  }
+});
+
 /*
  * Creates a summarization session. If the model has already been downloaded, this function will
- * create the session and return it. If the model needs to be downloaded, this function will
- * wait for the download to finish before resolving the promise.
- *
- * If a downloadProgressCallback is provided, the function will add the callback to the session
- * creation.
- *
- * The function expects the model availability to be either `readily` or `after-download`, so the
- * availability must be checked before calling it. If availability is `no`, the function will throw
- * an error.
- */
-const createSummarizationSession = async (
-  type: AISummarizerType,
-  format: AISummarizerFormat,
-  length: AISummarizerLength,
-  downloadProgressListener?: (ev: DownloadProgressEvent) => void): Promise<AISummarizer> => {
-  let monitor = undefined;
-  if (downloadProgressListener) {
-      monitor = (m: AICreateMonitor) => {
-          m.addEventListener('downloadprogress', downloadProgressListener);
-      };
-  }
-
-  if (!(await checkSummarizerSupport())) {
-    throw new Error('AI Summarization is not supported');
-  }
-
-  return self.ai.summarizer.create({ type, format, length, monitor });
-}
-
 /*
  * Checks if the device supports the Summarizer API (rather than if the browser supports the API).
  * This method returns `true` when the device is capable of running the Summarizer API and `false`
