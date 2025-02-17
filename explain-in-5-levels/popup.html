@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Explanation Level</title>
+  <style>
+    body {
+      width: 300px;
+      padding: 16px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    .level-option {
+      display: block;
+      margin: 8px 0;
+      padding: 8px;
+      width: 100%;
+      text-align: left;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: white;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .level-option:hover {
+      background: #f0f0f0;
+    }
+    .level-option.selected {
+      background: #e0e0ff;
+      border-color: #4444ff;
+    }
+    .level-name {
+      font-weight: bold;
+    }
+    .level-description {
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h2>Select Explanation Level</h2>
+  <div id="options"></div>
+  <script src="src/popup.ts" type="module"></script>
+</body>
+</html>

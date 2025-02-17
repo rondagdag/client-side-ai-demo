@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "Explain in 5 Levels",
+  "version": "1.0.0",
+  "description": "Highlight text to get AI-powered explanations at different comprehension levels",
+  "permissions": [
+    "activeTab",
+    "contextMenus",
+    "sidePanel",
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "32": "icon32.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "side_panel": {
+    "default_path": "index.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "trial_tokens": ["AlS5tnraWHj+vugqDla8C5MEgrqu9WvlWyoEOxFKWzk9/+nm2kRHU7bRtG/t6P7jrxKWgNYNlKwmixjw87xO5gAAAABzeyJvcmlnaW4iOiJjaHJvbWUtZXh0ZW5zaW9uOi8vam5raW1oZGZjb21saGNob2JoYmNqbWJmZmFhZ2pkZm0iLCJmZWF0dXJlIjoiQUlTdW1tYXJpemF0aW9uQVBJIiwiZXhwaXJ5IjoxNzUzMTQyNDAwfQ=="]
+}
