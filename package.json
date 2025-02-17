@@ -1,0 +1,26 @@
+{
+  "name": "client-side-ai-demo",
+  "version": "1.0.0",
+  "description": "A collection of client-side AI capability demos",
+  "scripts": {
+    "dev": "npm run build && npx http-server .",
+    "build": "npm run build:phi && npm run build:summarization",
+    "build:phi": "cd phi-3.5-webgpu && npm install && npm run build",
+    "build:summarization": "cd summarization-api-playground && npm install && npm run build"
+  },
+  "keywords": [
+    "ai",
+    "demo",
+    "client-side",
+    "webgpu",
+    "llm"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.0.6"
+  }
+}

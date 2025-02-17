@@ -7,7 +7,7 @@ import {FilesetResolver, LlmInference} from 'https://cdn.jsdelivr.net/npm/@media
 
 // TODO: Head to Kaggle, accept terms, and download the Gemma model here: https://www.kaggle.com/models/google/gemma/tfLite/gemma-2b-it-gpu-int4
 // Host on your CDN or server and update URL below to be that path. Ensure CORS headers are set so it can be used by your web app if different domain.
-const MODEL_FILE_NAME = 'gemma2-2b-it-gpu-int8.bin';
+const MODEL_FILE_NAME = '../models/gemma2-2b-it-gpu-int8.bin';
 
 const MENU = document.getElementById('menu');
 const MENU_ITEMS = document.querySelectorAll('.item');
