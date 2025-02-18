@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import Markdown from "markdown-to-jsx"
 
 const levelNames = {
   1: "The Greatest Generation (1901-1924)",
@@ -27,8 +28,13 @@ function App() {
         if (message.chunk !== undefined) {
           if (message.level) {
             setCurrentLevel(message.level)
+            setSummary((prev) => {
+              const levelHeader = `\n\n### ${levelNames[message.level as keyof typeof levelNames]} ###\n\n`;
+              return prev + levelHeader + message.chunk;
+            })
+          } else {
+            setSummary((prev) => prev + message.chunk)
           }
-          setSummary((prev) => prev + message.chunk)
         }
       } else if (message.type === "ERROR") {
         setSummary(message.error || "An error occurred")
@@ -79,8 +85,14 @@ function App() {
             </p>
           </div>
         )}
-        <div className="rounded-lg border p-4">
-          <pre className="whitespace-pre-wrap">{summary || "Select text and use right-click menu to get an explanation"}</pre>
+        <div className="rounded-lg border p-4 prose dark:prose-invert max-w-none">
+          {summary ? (
+            <Markdown>
+              {summary}
+            </Markdown>
+          ) : (
+            "Select text and use right-click menu to get an explanation"
+          )}
         </div>
       </div>
     </main>

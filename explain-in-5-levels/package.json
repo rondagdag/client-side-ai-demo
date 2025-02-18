@@ -15,6 +15,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.462.0",
+    "markdown-to-jsx": "^7.7.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tailwind-merge": "^2.5.5",
@@ -24,6 +25,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/chrome": "^0.0.287",
     "@types/node": "^22.10.1",
     "@types/react": "^18.3.12",
