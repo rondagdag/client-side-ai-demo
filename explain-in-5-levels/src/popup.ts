@@ -53,7 +53,13 @@ const levels: Level[] = [
 let currentLevel = 1;
 
 // Initialize the UI
-function initializeUI() {
+async function initializeUI() {
+  // Load saved level from storage
+  const result = await chrome.storage.sync.get('selectedLevel');
+  if (result.selectedLevel) {
+    currentLevel = result.selectedLevel.level;
+  }
+
   const container = document.getElementById('options')!;
   
   levels.forEach(level => {
@@ -67,6 +73,11 @@ function initializeUI() {
     button.addEventListener('click', () => selectLevel(level));
     container.appendChild(button);
   });
+
+  // If we loaded a saved level, make sure to initialize it
+  if (result.selectedLevel) {
+    await selectLevel(result.selectedLevel);
+  }
 }
 
 // Handle level selection
@@ -80,6 +91,9 @@ async function selectLevel(level: Level) {
     );
   });
   
+  // Save to storage
+  await chrome.storage.sync.set({ selectedLevel: level });
+  
   // Send message to background script
   await chrome.runtime.sendMessage({
     type: 'SET_LEVEL',
@@ -88,4 +102,6 @@ async function selectLevel(level: Level) {
 }
 
 // Initialize
-document.addEventListener('DOMContentLoaded', initializeUI);
+document.addEventListener('DOMContentLoaded', () => {
+  initializeUI().catch(console.error);
+});
