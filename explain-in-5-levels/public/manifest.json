@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Explain in 5 Levels",
+  "name": "Explain in Generations",
   "version": "1.0.0",
-  "description": "Highlight text to get AI-powered explanations at different comprehension levels",
+  "description": "Highlight text to get AI-powered explanations customized for different generations",
   "permissions": [
     "activeTab",
     "contextMenus",

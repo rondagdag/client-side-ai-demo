@@ -1,18 +1,19 @@
-# ⚡ Built-In Summarization ⚡
-> [!WARNING]
-> Quick project build for [Google Chrome Built-in AI Challenge](https://devpost.com/software/built-in-summarization)
+# 🌟 Explain in Generations 🌟
 
 ## Inspiration
-The overwhelming amount of information online makes it challenging to stay focused and extract key insights. Inspired by the need for speed and simplicity, we envisioned a tool that could summarize any text directly within the browser, saving time and enhancing productivity.
+Understanding how different generations consume and process information is crucial in today's multi-generational world. We created a tool that adapts explanations to match the communication styles and cultural references of different generations, from Gen Alpha to the Greatest Generation.
 
-[![](./document/demo.gif)](https://youtu.be/pvW0Poej6b4)
 ## **What it does**
+🌟 Explain in Generations enables users to highlight any text on a webpage and instantly receive AI-powered explanations tailored to specific generational communication styles. It seamlessly integrates into the Chrome side panel, allowing users to switch between different generational perspectives without leaving their current page.
 
-⚡ Built-In Summarization enables users to highlight any text on a webpage and instantly generate concise, AI-powered summaries. It seamlessly integrates into the Chrome side panel, keeping users engaged without switching tabs or tools.
-![](./document/extension-store/screenshot-1.jpg)
-![](./document/extension-store/screenshot-2.jpg)
+## **Features**
+- Adapts explanations for 7 different generations
+- Uses generation-specific cultural references and communication styles
+- Real-time AI-powered text processing
+- Seamless Chrome integration with side panel support
 
-## **What’s next for ⚡ Built-In Summarization**
-
-- Choices of summarization following the Chrome AI.summarizer API.
-- Ability to provide context for better summarization.
+## **What's next for 🌟 Explain in Generations**
+- Enhanced generational context awareness
+- Customizable communication style preferences
+- Multi-language support with generation-appropriate localizations
+- Integration with educational platforms for cross-generational learning

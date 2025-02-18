@@ -54,7 +54,7 @@ function App() {
       <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <h1 className="text-2xl font-bold">Explain in 5 Levels</h1>
+            <h1 className="text-2xl font-bold">Explain in Generations</h1>
             <button 
               onClick={() => setSummary("")}
               className="px-3 py-1 text-sm rounded-md bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 transition-colors"

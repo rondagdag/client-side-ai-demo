@@ -23,7 +23,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: "summarize-text",
-    title: "Summarize Selected Text",
+    title: "Explain in Generations",
     contexts: ["selection"]
   })
 })
