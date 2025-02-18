@@ -7,8 +7,8 @@ const sentry = new Toucan({
 // Store the current selected level
 let currentLevel = {
   level: 1,
-  context: "Explain like I'm 5",
-  description: "Simple explanation for young children"
+  context: "Explain like I'm from the Greatest Generation (1901-1924). Use very formal, authoritative language with proper etiquette. Reference early 20th century contexts, classical literature, and time-tested principles. Think: formal academic lecture or professional correspondence style. Focus on foundational wisdom and proven methodologies.",
+  description: "Classical formal style, scholarly tone, foundational principles, traditional wisdom emphasis"
 }
 
 // Listen for level changes from the popup
