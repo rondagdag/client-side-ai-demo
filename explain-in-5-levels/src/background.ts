@@ -1,13 +1,14 @@
 import { Toucan } from "toucan-js"
 const sentry = new Toucan({
-  dsn: "https://ce977c036bbb433dafd067640420f7c0@o4506307840770048.ingest.us.sentry.io/4508407520493568",
+  dsn: "https://85882377f458516b86a142cd2433f657@o4508836932812800.ingest.us.sentry.io/4508836938579969",
   environment: import.meta.env.PROD ? "production" : "development"
 })
 
 // Store the current selected level
 let currentLevel = {
   level: 1,
-  context: "Explain like I'm 5"
+  context: "Explain like I'm 5",
+  description: "Simple explanation for young children"
 }
 
 // Listen for level changes from the popup
@@ -28,7 +29,7 @@ chrome.runtime.onInstalled.addListener(() => {
 })
 
 const getOptions = () => ({
-  sharedContext: currentLevel.context,
+  sharedContext: `${currentLevel.context}. ${currentLevel.description}`,
   type: "tl;dr",
   format: "plain-text",
   length: "medium"

@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
 
 const levelNames = {
-  1: "Child (Age 5)",
-  2: "Teenager",
-  3: "College Student",
-  4: "Grad Student",
-  5: "Expert"
+  1: "The Greatest Generation (1901-1924)",
+  2: "The Silent Generation (1925-1945)",
+  3: "Baby Boomer (1946-1964)",
+  4: "Generation X (1965-1979)",
+  5: "Millennial (1980-1994)",
+  6: "Generation Z (1995-2012)",
+  7: "Generation Alpha (2013-2025)"
 }
 
 function App() {

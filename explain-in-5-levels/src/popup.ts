@@ -7,34 +7,46 @@ interface Level {
 
 const levels: Level[] = [
   {
-    level: 1,
-    name: "Child",
-    context: "Explain like I'm 5",
-    description: "Simple explanations for young children"
+    level: 7,
+    name: "Generation Alpha",
+    context: "Explain like I'm from Generation Alpha (2013-2025)",
+    description: "AI-native and interactive explanations"
   },
   {
-    level: 2,
-    name: "Teenager",
-    context: "Explain like I'm in my Teens",
-    description: "Clear explanations for teenagers"
-  },
-  {
-    level: 3,
-    name: "College Student",
-    context: "Explain like I'm in my 20s",
-    description: "Detailed explanations for college level"
-  },
-  {
-    level: 4,
-    name: "Grad Student",
-    context: "Explain like I'm in my 25-30s",
-    description: "Advanced explanations for graduate level"
+    level: 6,
+    name: "Generation Z",
+    context: "Explain like I'm from Generation Z (1995-2012)",
+    description: "Digital native perspective explanations"
   },
   {
     level: 5,
-    name: "Expert",
-    context: "Explain at expert level",
-    description: "Technical, in-depth explanations"
+    name: "Millennial",
+    context: "Explain like I'm a Millennial (1980-1994)",
+    description: "Tech-savvy and collaborative explanations"
+  },
+  {
+    level: 4,
+    name: "Generation X",
+    context: "Explain like I'm from Generation X (1965-1979)",
+    description: "Independent and pragmatic explanations"
+  },
+  {
+    level: 3,
+    name: "Baby Boomer",
+    context: "Explain like I'm a Baby Boomer (1946-1964)",
+    description: "Idealistic and experience-based explanations"
+  },
+  {
+    level: 2,
+    name: "The Silent Generation",
+    context: "Explain like I'm from the Silent Generation (1925-1945)",
+    description: "Practical and conventional explanations"
+  },
+  {
+    level: 1,
+    name: "The Greatest Generation",
+    context: "Explain like I'm from the Greatest Generation (1901-1924)",
+    description: "Traditional, formal, and straightforward explanations"
   }
 ];
 
