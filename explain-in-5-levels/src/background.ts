@@ -11,10 +11,19 @@ let currentLevel = {
   description: "Classical formal style, scholarly tone, foundational principles, traditional wisdom emphasis"
 }
 
+// Load saved level when extension starts
+chrome.storage.local.get(['currentLevel'], (result) => {
+  if (result.currentLevel) {
+    currentLevel = result.currentLevel;
+  }
+});
+
 // Listen for level changes from the popup
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message.type === "SET_LEVEL") {
     currentLevel = message.level
+    // Save to storage whenever level changes
+    chrome.storage.local.set({ currentLevel: message.level });
     sendResponse({ success: true })
   }
 })
