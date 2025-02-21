@@ -1,42 +1,48 @@
+// Initialize Sentry for error tracking and monitoring
 import { Toucan } from "toucan-js"
 const sentry = new Toucan({
   dsn: "https://85882377f458516b86a142cd2433f657@o4508836932812800.ingest.us.sentry.io/4508836938579969",
   environment: import.meta.env.PROD ? "production" : "development"
 })
 
-// Store the current selected level
+// Default configuration for the current explanation level
+// This serves as a fallback if no stored level is found
 let currentLevel = {
   level: 1,
   context: "Explain like I'm from the Greatest Generation (1901-1924). Use very formal, authoritative language with proper etiquette. Reference early 20th century contexts, classical literature, and time-tested principles. Think: formal academic lecture or professional correspondence style. Focus on foundational wisdom and proven methodologies.",
   description: "Classical formal style, scholarly tone, foundational principles, traditional wisdom emphasis"
 }
 
-// Load saved level when extension starts
+// On extension startup, retrieve the previously saved level from Chrome's storage
+// This ensures user preferences persist across browser sessions
 chrome.storage.local.get(['currentLevel'], (result) => {
   if (result.currentLevel) {
     currentLevel = result.currentLevel;
   }
 });
 
-// Listen for level changes from the popup
+// Message handler for level changes from the popup
+// When the user selects a new level, update both memory and persistent storage
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message.type === "SET_LEVEL") {
     currentLevel = message.level
-    // Save to storage whenever level changes
+    // Persist the new level to Chrome's storage
     chrome.storage.local.set({ currentLevel: message.level });
     sendResponse({ success: true })
   }
 })
 
-// Extension installation listener
+// Set up the context menu item when the extension is installed or updated
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: "summarize-text",
     title: "Explain in Generations",
-    contexts: ["selection"]
+    contexts: ["selection"]  // Only show menu on text selection
   })
 })
 
+// Helper function to get the current summarization options
+// These options configure how the AI explains the selected text
 const getOptions = () => ({
   sharedContext: `${currentLevel.context}. ${currentLevel.description}`,
   type: "tl;dr",
@@ -44,43 +50,53 @@ const getOptions = () => ({
   length: "medium"
 })
 
+// Check if the Chrome AI Summarizer API is available
 // @ts-expect-error new chrome feature
 if ("ai" in self && "summarizer" in self.ai) {
-  // 🎨 UI Thread: Handle context menu click
+  // Handle right-click context menu selection
   chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     if (info.menuItemId === "summarize-text" && info.selectionText && tab?.id) {
+      // Open the side panel if available
       if (chrome.sidePanel && tab) {
         try {
           chrome.sidePanel.open({ windowId: tab.windowId })
-
+          // Small delay to ensure panel is ready
           await new Promise((resolve) => setTimeout(resolve, 500))
         } catch (error) {
           sentry.captureException(error)
         }
       }
+
       try {
+        // Check if the summarizer API is available and ready to use
         // @ts-expect-error new chrome feature
         const available = (await self.ai.summarizer.capabilities()).available
         let summarizer
+
         if (available === "no") {
+          // API is not available on this system
           chrome.runtime.sendMessage({
             type: "ERROR",
             error: "The Summarizer API isn't usable"
           })
           return
         }
+
         if (available === "readily") {
+          // API is ready to use immediately
           chrome.runtime.sendMessage({
             chunk: "",
             type: "STREAM_RESPONSE",
             isFirst: true,
             level: currentLevel.level
           })
+
+          // Initialize the summarizer with current options
           // @ts-expect-error new chrome feature
           summarizer = await self.ai.summarizer.create(getOptions())
-
           await summarizer.ready
 
+          // Process the selected text and stream the results
           const stream = await summarizer.summarize(info.selectionText, {
             context: `article from ${new URL(tab.url!).origin}`
           })
@@ -94,9 +110,10 @@ if ("ai" in self && "summarizer" in self.ai) {
             type: "STREAM_COMPLETE"
           })
         } else {
-          // The Summarizer API can be used after the model is downloaded.
+          // API needs to download models first
           // @ts-expect-error new chrome feature
           summarizer = await self.ai.summarizer.create(getOptions())
+          // Track and report download progress
           summarizer.addEventListener(
             "downloadprogress",
             (e: { loaded: number; total: number }) => {
@@ -116,7 +133,7 @@ if ("ai" in self && "summarizer" in self.ai) {
     }
   })
 
-  // ⚡ Extension Icon: Open side panel when extension icon is clicked
+  // Handle clicks on the extension icon
   chrome.action.onClicked.addListener(async (tab) => {
     if (chrome.sidePanel && tab) {
       try {
@@ -127,6 +144,7 @@ if ("ai" in self && "summarizer" in self.ai) {
     }
   })
 } else {
+  // Log an error if the Summarizer API is not available in this browser
   sentry.captureMessage("Try to access Summarizer", "fatal", {
     data: {
       userAgent: navigator.userAgent

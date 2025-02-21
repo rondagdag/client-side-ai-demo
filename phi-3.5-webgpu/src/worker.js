@@ -26,7 +26,7 @@ class TextGenerationPipeline {
 
     return Promise.all([this.tokenizer, this.model]);
   }
-}
+}``
 
 const stopping_criteria = new InterruptableStoppingCriteria();
 
