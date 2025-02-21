@@ -15,12 +15,18 @@ A collection of demos showcasing various client-side AI capabilities and APIs.
 
 ## Available Demos
 
+- Explain in 5 Levels (Browser Extension)
 - MediaPipe LLM Demo
+- Next.js Client Demo
 - Phi 3.5 WebGPU Demo
 - Prompt API Playground
+- Quick Start ONNX Runtime Web
 - Right Click for Superpowers
 - Summarization API Playground
-- Translation & Language Detection API
+- Translation & Language Detection API Playground
+- Video Background Removal
+- Video Object Detection
+- WebLLM Simple Chat (JavaScript)
 
 Each demo is self-contained in its own directory and can be accessed through the main landing page.
 
