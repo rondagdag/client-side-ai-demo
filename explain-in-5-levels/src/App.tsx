@@ -20,11 +20,16 @@ function App() {
 
   useEffect(() => {
     const messageListener = (
-      message: { type: string; chunk?: string; error?: string; total?: number; loaded?: number; level?: number },
+      message: { type: string; chunk?: string; error?: string; total?: number; loaded?: number; level?: number; isFirst?: boolean },
       _sender: chrome.runtime.MessageSender,
       sendResponse: (response?: any) => void
     ) => {
       if (message.type === "STREAM_RESPONSE") {
+        setLoading(true)
+        if (message.isFirst) {
+          setSummary("")
+          return
+        }
         if (message.chunk !== undefined) {
           if (message.level) {
             setCurrentLevel(message.level)
@@ -41,6 +46,7 @@ function App() {
         setLoading(false)
       } else if (message.type === "AI_INITIATE") {
         setLoading(true)
+        setSummary("")
         setTotal(message.total || 0)
         setProgress(message.loaded || 0)
       } else if (message.type === "STREAM_COMPLETE") {
@@ -90,6 +96,14 @@ function App() {
             <Markdown>
               {summary}
             </Markdown>
+          ) : loading ? (
+            <div className="flex items-center gap-2 text-lg">
+              <span className="inline-flex space-x-2">
+                <span className="animate-[dot_1.4s_infinite] [animation-delay:0.2s] text-blue-500 dark:text-blue-400 text-2xl font-bold">●</span>
+                <span className="animate-[dot_1.4s_infinite] [animation-delay:0.4s] text-blue-500 dark:text-blue-400 text-2xl font-bold">●</span>
+                <span className="animate-[dot_1.4s_infinite] [animation-delay:0.6s] text-blue-500 dark:text-blue-400 text-2xl font-bold">●</span>
+              </span>
+            </div>
           ) : (
             "Select text and use right-click menu to get an explanation"
           )}

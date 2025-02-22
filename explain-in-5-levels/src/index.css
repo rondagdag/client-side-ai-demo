@@ -56,6 +56,22 @@
     --chart-5: 340 75% 55%;
   }
 }
+
+@keyframes dot {
+  0% {
+    opacity: 0.4;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+  100% {
+    opacity: 0.4;
+    transform: translateY(0);
+  }
+}
+
 @layer base {
   * {
     @apply border-border antialiased;
