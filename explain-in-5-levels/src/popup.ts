@@ -72,8 +72,6 @@ async function initializeUI() {
     
     button.addEventListener('click', () => {
       selectLevel(level);
-      // Close the popup after selection
-      window.close();
     });
     container.appendChild(button);
   });

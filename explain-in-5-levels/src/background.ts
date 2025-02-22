@@ -107,7 +107,8 @@ if ("ai" in self && "summarizer" in self.ai) {
             })
           }
           chrome.runtime.sendMessage({
-            type: "STREAM_COMPLETE"
+            type: "STREAM_COMPLETE",
+            level: currentLevel.level
           })
         } else {
           // API needs to download models first
@@ -121,7 +122,7 @@ if ("ai" in self && "summarizer" in self.ai) {
               chrome.runtime.sendMessage({
                 type: "AI_INITIATE",
                 total: e.total,
-                loaded: e.loaded
+                loaded: e.loaded,
               })
             }
           )

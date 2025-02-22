@@ -57,6 +57,9 @@ function App() {
         setProgress(message.loaded || 0)
       } else if (message.type === "STREAM_COMPLETE") {
         setLoading(false)
+        if (message.level) {
+          setCurrentLevel(message.level)
+        }
       }
       sendResponse()
     }
@@ -106,7 +109,6 @@ function App() {
           {summary || loading ? (
             <>
               <div className="flex items-center gap-3 mb-6">
-                <h2 className="mt-0 text-xl font-semibold">Generation</h2>
                 <span className="px-3 py-1 rounded-full text-sm bg-primary/10 text-primary border border-primary/20">
                   {levelNames[currentLevel as keyof typeof levelNames]}
                 </span>
