@@ -70,7 +70,11 @@ async function initializeUI() {
       <div class="level-description">${level.description}</div>
     `;
     
-    button.addEventListener('click', () => selectLevel(level));
+    button.addEventListener('click', () => {
+      selectLevel(level);
+      // Close the popup after selection
+      window.close();
+    });
     container.appendChild(button);
   });
 
