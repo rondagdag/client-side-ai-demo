@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import Markdown from "markdown-to-jsx"
+import { Switch } from "./components/ui/Switch"
+import TrashIcon from "./components/icons/TrashIcon"
 
 const levelNames = {
   1: "The Greatest Generation (1901-1924)",
@@ -17,6 +19,13 @@ function App() {
   const [progress, setProgress] = useState(0)
   const [total, setTotal] = useState(0)
   const [currentLevel, setCurrentLevel] = useState(1)
+  const [theme, setTheme] = useState<'light' | 'dark'>(
+    () => (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+  )
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', theme === 'dark')
+  }, [theme])
 
   useEffect(() => {
     const messageListener = (
@@ -33,10 +42,7 @@ function App() {
         if (message.chunk !== undefined) {
           if (message.level) {
             setCurrentLevel(message.level)
-            setSummary((prev) => {
-              const levelHeader = `\n\n### ${levelNames[message.level as keyof typeof levelNames]} ###\n\n`;
-              return prev + levelHeader + message.chunk;
-            })
+            setSummary((prev) => prev + message.chunk)
           } else {
             setSummary((prev) => prev + message.chunk)
           }
@@ -69,13 +75,18 @@ function App() {
             <h1 className="text-2xl font-bold">Explain in Generations</h1>
             <button 
               onClick={() => setSummary("")}
-              className="px-3 py-1 text-sm rounded-md bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 transition-colors"
+              className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors"
+              aria-label="Clear summary"
             >
-              Clear
+              <TrashIcon className="h-5 w-5" />
             </button>
-          </div>
-          <div className="text-sm text-muted-foreground">
-            Current Level: {levelNames[currentLevel as keyof typeof levelNames]}
+            <div className="flex items-center gap-2">
+              <Switch 
+                checked={theme === 'dark'}
+                onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
+                aria-label="Toggle theme"
+              />
+            </div>
           </div>
         </div>
         {loading && total > 0 && (
@@ -92,18 +103,28 @@ function App() {
           </div>
         )}
         <div className="rounded-lg border p-4 prose dark:prose-invert max-w-none">
-          {summary ? (
-            <Markdown>
-              {summary}
-            </Markdown>
-          ) : loading ? (
-            <div className="flex items-center gap-2 text-lg">
-              <span className="inline-flex space-x-2">
-                <span className="animate-[dot_1.4s_infinite] [animation-delay:0.2s] text-blue-500 dark:text-blue-400 text-2xl font-bold">●</span>
-                <span className="animate-[dot_1.4s_infinite] [animation-delay:0.4s] text-blue-500 dark:text-blue-400 text-2xl font-bold">●</span>
-                <span className="animate-[dot_1.4s_infinite] [animation-delay:0.6s] text-blue-500 dark:text-blue-400 text-2xl font-bold">●</span>
-              </span>
-            </div>
+          {summary || loading ? (
+            <>
+              <div className="flex items-center gap-3 mb-6">
+                <h2 className="mt-0 text-xl font-semibold">Generation</h2>
+                <span className="px-3 py-1 rounded-full text-sm bg-primary/10 text-primary border border-primary/20">
+                  {levelNames[currentLevel as keyof typeof levelNames]}
+                </span>
+              </div>
+              {summary ? (
+                <Markdown>
+                  {summary}
+                </Markdown>
+              ) : (
+                <div className="flex items-center gap-2 text-lg">
+                  <span className="inline-flex space-x-2">
+                    <span className="animate-[dot_1.4s_infinite] [animation-delay:0.2s] text-blue-500 dark:text-blue-400 text-2xl font-bold">●</span>
+                    <span className="animate-[dot_1.4s_infinite] [animation-delay:0.4s] text-blue-500 dark:text-blue-400 text-2xl font-bold">●</span>
+                    <span className="animate-[dot_1.4s_infinite] [animation-delay:0.6s] text-blue-500 dark:text-blue-400 text-2xl font-bold">●</span>
+                  </span>
+                </div>
+              )}
+            </>
           ) : (
             "Select text and use right-click menu to get an explanation"
           )}
