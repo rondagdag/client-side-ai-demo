@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>TechStack Time Machine</title>
+  <style>
+    body {
+      width: 400px;
+      padding: 16px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    .level-option {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      text-align: left;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      background: white;
+      transition: all 0.2s;
+    }
+    .level-option:hover {
+      background: #f5f5f5;
+    }
+    .level-option.selected {
+      border-color: #0066cc;
+      background: #f0f7ff;
+    }
+    .level-name {
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    .level-description {
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h2>Choose Your Era</h2>
+  <div id="options"></div>
+  <script type="module" src="/src/popup.ts"></script>
+</body>
+</html>
