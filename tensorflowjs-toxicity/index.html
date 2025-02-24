@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/toxicity"></script>
+    <script>
+        const threshold = 0.5
+        toxicity.load(threshold).then((model) => {
+          const sentences = ["You are a tiny, little baby poop", "My favorite color is blue.", "Shut up!"];
+       
+          model.classify(sentences).then((predictions) => {
+            console.log(JSON.stringify(predictions, null, 2));
+          });
+        });
+    </script>
+  </head>
+  <body>
+    <h1>Check the console log!</h1>
+  </body>
+</html>
