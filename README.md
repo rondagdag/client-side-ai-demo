@@ -15,18 +15,22 @@ A collection of demos showcasing various client-side AI capabilities and APIs.
 
 ## Available Demos
 
-- Explain in 5 Levels (Browser Extension)
-- MediaPipe LLM Demo
-- Next.js Client Demo
-- Phi 3.5 WebGPU Demo
-- Prompt API Playground
-- Quick Start ONNX Runtime Web
-- Right Click for Superpowers
-- Summarization API Playground
-- Translation & Language Detection API Playground
-- Video Background Removal
-- Video Object Detection
-- WebLLM Simple Chat (JavaScript)
+| Demo Name | Description |
+|-----------|-------------|
+| TensorFlow.js Toxicity | Demonstrates real-time text toxicity detection using TensorFlow.js models in the browser |
+| Quick Start ONNX Runtime Web | A minimalist demo showing how to run ONNX models directly in the browser using both ESM and traditional script tag approaches |
+| MediaPipe LLM Demo | Demonstrates interactive machine learning using MediaPipe combined with Gemma 2B model for efficient client-side inference |
+| WebLLM Simple Chat | A lightweight chat interface demonstrating how to integrate and use large language models directly in the browser |
+| Video Object Detection | Live object detection and tracking in video streams using browser-based ML models |
+| Phi 3.5 WebGPU Demo | Leverages WebGPU technology to run the Phi-3.5 language model directly in the browser for enhanced AI computations |
+| Prompt API Playground | An interactive environment to experiment with various prompt APIs and test different AI query patterns in real-time |
+| Right Click for Superpowers | Enhances the browser's context menu with AI-powered capabilities for smarter interactions |
+| Summarization API Playground | Interactive testing environment for text summarization algorithms with real-time API integration |
+| Translation & Language Detection API Playground | A comprehensive testing ground for translation and language detection capabilities using client-side APIs |
+| Explain in Generations | A browser extension that breaks down complex topics into different levels of understanding, helping users grasp concepts progressively |
+| Next.js Client Demo | A client-side demo powered by Next.js showcasing dynamic user interactions and server-side rendering features |
+| Techstack Time Machine | A tool that visualizes and analyzes the evolution of technology stacks over time |
+| Video Background Removal | Real-time video background removal using ML models running entirely in the browser |
 
 Each demo is self-contained in its own directory and can be accessed through the main landing page.
 
