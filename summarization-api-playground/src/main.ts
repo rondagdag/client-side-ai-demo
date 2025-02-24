@@ -86,6 +86,36 @@ const checkSummarizerSupport = async (): Promise<boolean> => {
   return capabilites.available !== 'no';
 }
 
+let timeout: number | undefined = undefined;
+function scheduleSummarization() {
+  // Debounces the call to the summarization API. This will run the summarization once the user
+  // hasn't typed anything for at least 1 second.
+  clearTimeout(timeout);
+  timeout = setTimeout(async () => {
+    output.textContent = 'Generating summary...';
+    let session = await createSummarizationSession(
+      summaryTypeSelect.value as AISummarizerType,
+      summaryFormatSelect.value as AISummarizerFormat,
+      summaryLengthSelect.value as AISummarizerLength,
+    );
+    let summary = await session.summarize(inputTextArea.value);
+    session.destroy();
+    output.textContent = summary;
+  }, 1000);
+}
+
+async function createSummarizationSession(
+  type: AISummarizerType,
+  format: AISummarizerFormat,
+  length: AISummarizerLength
+) {
+  return await self.ai.summarizer.create({
+    type,
+    format,
+    length
+  });
+}
+
 /*
  * Initializes the application.
  * This function will check for the availability of the Summarization API, and if the device is
@@ -102,24 +132,6 @@ const initializeApplication = async () => {
   if (!canSummarize) {
     summarizationUnsupportedDialog.style.display = 'block';
     return;
-  }
-
-  let timeout: number | undefined = undefined;
-  function scheduleSummarization() {
-    // Debounces the call to the summarization API. This will run the summarization once the user
-    // hasn't typed anything for at least 1 second.
-    clearTimeout(timeout);
-    timeout = setTimeout(async () => {
-      output.textContent = 'Generating summary...';
-      let session = await createSummarizationSession(
-        summaryTypeSelect.value as AISummarizerType,
-        summaryFormatSelect.value as AISummarizerFormat,
-        summaryLengthSelect.value as AISummarizerLength,
-      );
-      let summary = await session.summarize(inputTextArea.value);
-      session.destroy();
-      output.textContent = summary;
-    }, 1000);
   }
 
   summaryTypeSelect.addEventListener('change', scheduleSummarization);

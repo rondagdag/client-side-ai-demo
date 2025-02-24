@@ -3,10 +3,16 @@
   "version": "1.0.0",
   "description": "A collection of client-side AI capability demos",
   "scripts": {
-    "dev": "npm run build && npx http-server .",
-    "build": "npm run build:phi && npm run build:summarization",
+    "dev": "npm run build:all && npx http-server .",
+    "build": "npm run build:all",
+    "build:all": "npm-run-all --parallel build:*",
     "build:phi": "cd phi-3.5-webgpu && npm install && npm run build",
-    "build:summarization": "cd summarization-api-playground && npm install && npm run build"
+    "build:summarization": "cd summarization-api-playground && npm install && npm run build",
+    "build:explain": "cd explain-in-generations && npm install && npm run build",
+    "build:next": "cd next-client && npm install && npm run build",
+    "build:techstack": "cd techstack-time-machine && npm install && npm run build",
+    "build:video-bg": "cd video-background-removal && npm install && npm run build",
+    "build:video-obj": "cd video-object-detection && npm install && npm run build"
   },
   "keywords": [
     "ai",
@@ -18,7 +24,8 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "http-server": "^14.1.1"
+    "http-server": "^14.1.1",
+    "npm-run-all": "^4.1.5"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.0.6"
