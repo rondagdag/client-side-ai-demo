@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A collection of client-side AI capability demos",
   "scripts": {
-    "dev": "npm run build:all && npx http-server .",
+    "dev": "npx http-server .",
     "build": "npm run build:all",
     "build:all": "npm-run-all --parallel build:*",
     "build:phi": "cd phi-3.5-webgpu && npm install && npm run build",

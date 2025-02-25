@@ -12,6 +12,43 @@ Understanding how different generations consume and process information is cruci
 - Real-time AI-powered text processing
 - Seamless Chrome integration with side panel support
 
+## Installation & Setup
+
+1. Clone this repository, build the project
+2. Enable Chrome's built-in AI features:
+   - Open Chrome and navigate to `chrome://flags`
+   - Enable the following flags:
+     - `chrome://flags/#summarization-api-for-gemini-nano`
+   - Click "Restart" to apply changes
+   - For more details, see the [official Chrome Summarization API documentation](https://developer.chrome.com/docs/ai/summarizer-api)
+3. Open Chrome and navigate to `chrome://extensions`
+4. Enable "Developer mode" in the top right corner
+5. Click "Load unpacked" and select the extension directory
+
+## Usage
+
+1. Navigate to any webpage
+2. Open the side panel by clicking the extension icon in the toolbar
+3. Highlight any text on the webpage
+4. The extension will automatically generate explanations tailored for different generations
+5. Switch between different generational perspectives using the controls in the side panel
+
+## Requirements
+
+- Google Chrome version 116 or later
+- Permissions:
+  - `"sidePanel"`: Required for the extension's side panel interface
+  - `"activeTab"`: Required to access the current page's content
+  - `"generativeContentAPI"`: Required for AI-powered text generation
+
+## API Notes
+
+This extension uses Chrome's Generative Content API, which:
+- Is free to use
+- Runs locally on the user's device
+- Does not send data to external servers
+- Requires Chrome version 116 or later
+
 ## **What's next for 🌟 Explain in Generations**
 - Enhanced generational context awareness
 - Customizable communication style preferences

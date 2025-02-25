@@ -19,6 +19,7 @@ The `index.html` file loads the TensorFlow.js library and the Toxicity model. It
 
 - [TensorFlow.js](https://cdn.jsdelivr.net/npm/@tensorflow/tfjs)
 - [TensorFlow Toxicity Model](https://cdn.jsdelivr.net/npm/@tensorflow-models/toxicity)
+- [Pre-trained TensorFlow.js models](https://github.com/tensorflow/tfjs-models)
 
 ## Example Sentences
 
