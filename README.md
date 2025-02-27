@@ -4,18 +4,29 @@ A collection of demos showcasing various client-side AI capabilities and APIs.
 
 ## Running Locally
 
-1. Make sure you have [Node.js](https://nodejs.org/) installed
-2. Download the Gemma 2B model:
+1. Enable Chrome Flags (Required for WebGPU demos):
+   - Open Chrome and navigate to `chrome://flags/`
+   - Enable the following flags:
+     - `#enable-webgpu-developer-features`
+     - `#enable-unsafe-webgpu`
+   - Restart Chrome for the changes to take effect
+
+2. Make sure you have [Node.js](https://nodejs.org/) installed
+
+3. Download the Gemma 2B model:
    - Visit [Kaggle Models - Gemma 2B](https://www.kaggle.com/models/google/gemma-2/tfLite/gemma2-2b-it-gpu-int8)
    - Download the `gemma2-2b-it-gpu-int8.bin` file
    - Place it in the `models` folder of this project
-3. Open a terminal in this directory
-4. Run the following command to start a local server:
+
+4. Open a terminal in this directory
+
+5. Run the following command to start a local server:
    ```bash
    npx http-server
    ```
-5. Open your browser and navigate to `http://localhost:8080`
-6. You should see the landing page with links to all available demos
+
+6. Open your browser and navigate to `http://localhost:8080`
+7. You should see the landing page with links to all available demos
 
 ## Available Demos
 
