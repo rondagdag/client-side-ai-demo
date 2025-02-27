@@ -1,0 +1,22 @@
+{
+  "name": "localchat",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "webpack serve --no-client-overlay",
+    "build": "webpack",
+    "lint": "eslint . --ext js  --report-unused-disable-directives"
+  },
+  "dependencies": {
+    "@xenova/transformers": "^2.17.2",
+    "copy-webpack-plugin": "^12.0.2",
+    "marked": "^15.0.7",
+    "onnxruntime-web": "^1.20.1",
+    "webpack": "^5.98.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.0"
+  }
+}

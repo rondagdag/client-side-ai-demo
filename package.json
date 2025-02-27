@@ -12,7 +12,8 @@
     "build:next": "cd next-client && npm install && npm run build",
     "build:techstack": "cd techstack-time-machine && npm install && npm run build",
     "build:video-bg": "cd video-background-removal && npm install && npm run build",
-    "build:video-obj": "cd video-object-detection && npm install && npm run build"
+    "build:video-obj": "cd video-object-detection && npm install && npm run build",
+    "build:phichat": "cd onnxruntimeweb-phichat && npm install && npm run build"
   },
   "keywords": [
     "ai",
