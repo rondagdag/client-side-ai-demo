@@ -5,13 +5,17 @@ A collection of demos showcasing various client-side AI capabilities and APIs.
 ## Running Locally
 
 1. Make sure you have [Node.js](https://nodejs.org/) installed
-2. Open a terminal in this directory
-3. Run the following command to start a local server:
+2. Download the Gemma 2B model:
+   - Visit [Kaggle Models - Gemma 2B](https://www.kaggle.com/models/google/gemma-2/tfLite/gemma2-2b-it-gpu-int8)
+   - Download the `gemma2-2b-it-gpu-int8.bin` file
+   - Place it in the `models` folder of this project
+3. Open a terminal in this directory
+4. Run the following command to start a local server:
    ```bash
    npx http-server
    ```
-4. Open your browser and navigate to `http://localhost:8080`
-5. You should see the landing page with links to all available demos
+5. Open your browser and navigate to `http://localhost:8080`
+6. You should see the landing page with links to all available demos
 
 ## Available Demos
 
