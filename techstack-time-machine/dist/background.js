@@ -46,22 +46,22 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
       }
     }
     try {
-      const available = (await self.ai.summarizer.capabilities()).available;
+      const availability = await Summarizer.availability();
       let summarizer;
-      if (available === "no") {
+      if (availability === "unavailable") {
         chrome.runtime.sendMessage({
           type: "ERROR",
           error: "The Summarizer API isn't usable"
         });
         return;
       }
-      if (available === "readily") {
+      if (availability === "available") {
         chrome.runtime.sendMessage({
           type: "STREAM_RESPONSE",
           isFirst: true,
           level: currentLevel.level
         });
-        summarizer = await self.ai.summarizer.create(getOptions());
+        summarizer = await Summarizer.create(getOptions());
         await summarizer.ready;
         const stream = await summarizer.summarize(info.selectionText, {
           context: `article from ${new URL(tab.url).origin}`

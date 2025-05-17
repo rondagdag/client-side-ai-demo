@@ -45,6 +45,7 @@ const getOptions = () => ({
   length: "medium"
 })
 
+
 // Handle context menu clicks
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   if (info.menuItemId === "summarize-text" && info.selectionText && tab?.id) {
@@ -59,10 +60,10 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 
     try {
       // @ts-expect-error new chrome feature
-      const available = (await self.ai.summarizer.capabilities()).available
+      const availability = await Summarizer.availability();
       let summarizer
 
-      if (available === "no") {
+      if (availability === 'unavailable') {
         chrome.runtime.sendMessage({
           type: "ERROR",
           error: "The Summarizer API isn't usable"
@@ -70,7 +71,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
         return
       }
 
-      if (available === "readily") {
+      if (availability === 'available') {
         chrome.runtime.sendMessage({
           type: "STREAM_RESPONSE",
           isFirst: true,
@@ -79,7 +80,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 
         // Initialize summarizer
         // @ts-expect-error new chrome feature
-        summarizer = await self.ai.summarizer.create(getOptions())
+        summarizer = await Summarizer.create(getOptions());
         await summarizer.ready
 
         // Process text and stream results
