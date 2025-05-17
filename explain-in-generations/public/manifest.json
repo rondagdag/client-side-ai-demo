@@ -34,6 +34,5 @@
   "background": {
     "service_worker": "background.js",
     "type": "module"
-  },
-  "trial_tokens": ["AmxK07WhV9G+32cKcg2VKmJ/JVuMhpJRJnItODvGsxJ/1AMOc1PLoVfhOjXSplbru0pYAk5+L/HKwvGK5YeXQQQAAABzeyJvcmlnaW4iOiJjaHJvbWUtZXh0ZW5zaW9uOi8vYmNqamxhZGdoZWNobG9pY2JkZmVkY2xmZm5kbmZmbWkiLCJmZWF0dXJlIjoiQUlTdW1tYXJpemF0aW9uQVBJIiwiZXhwaXJ5IjoxNzYwNDAwMDAwfQ=="]
+  }
 }
