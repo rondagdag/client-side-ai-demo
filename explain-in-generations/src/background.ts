@@ -51,8 +51,7 @@ const getOptions = () => ({
 })
 
 // Check if the Chrome AI Summarizer API is available
-// @ts-expect-error new chrome feature
-if ("ai" in self && "summarizer" in self.ai) {
+if ('Summarizer' in self) {
   // Handle right-click context menu selection
   chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     if (info.menuItemId === "summarize-text" && info.selectionText && tab?.id) {
@@ -70,10 +69,11 @@ if ("ai" in self && "summarizer" in self.ai) {
       try {
         // Check if the summarizer API is available and ready to use
         // @ts-expect-error new chrome feature
-        const available = (await self.ai.summarizer.capabilities()).available
+        //const available = (await self.ai.summarizer.capabilities()).available
+        const availability = await Summarizer.availability();
         let summarizer
 
-        if (available === "no") {
+        if (availability === 'unavailable') {
           // API is not available on this system
           chrome.runtime.sendMessage({
             type: "ERROR",
@@ -82,7 +82,7 @@ if ("ai" in self && "summarizer" in self.ai) {
           return
         }
 
-        if (available === "readily") {
+        if (availability === 'available') {
           // API is ready to use immediately
           chrome.runtime.sendMessage({
             chunk: "",
@@ -93,7 +93,7 @@ if ("ai" in self && "summarizer" in self.ai) {
 
           // Initialize the summarizer with current options
           // @ts-expect-error new chrome feature
-          summarizer = await self.ai.summarizer.create(getOptions())
+          summarizer = await Summarizer.create(getOptions());
           await summarizer.ready
 
           // Process the selected text and stream the results
@@ -113,7 +113,7 @@ if ("ai" in self && "summarizer" in self.ai) {
         } else {
           // API needs to download models first
           // @ts-expect-error new chrome feature
-          summarizer = await self.ai.summarizer.create(getOptions())
+          summarizer = await Summarizer.create(options);
           // Track and report download progress
           summarizer.addEventListener(
             "downloadprogress",

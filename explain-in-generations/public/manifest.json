@@ -8,7 +8,7 @@
     "contextMenus",
     "sidePanel",
     "storage",
-    "generativeContentAPI"
+    "aiLanguageModelOriginTrial"
   ],
   "host_permissions": [
     "<all_urls>"
@@ -35,5 +35,5 @@
     "service_worker": "background.js",
     "type": "module"
   },
-  "trial_tokens": ["AlS5tnraWHj+vugqDla8C5MEgrqu9WvlWyoEOxFKWzk9/+nm2kRHU7bRtG/t6P7jrxKWgNYNlKwmixjw87xO5gAAAABzeyJvcmlnaW4iOiJjaHJvbWUtZXh0ZW5zaW9uOi8vam5raW1oZGZjb21saGNob2JoYmNqbWJmZmFhZ2pkZm0iLCJmZWF0dXJlIjoiQUlTdW1tYXJpemF0aW9uQVBJIiwiZXhwaXJ5IjoxNzUzMTQyNDAwfQ=="]
+  "trial_tokens": ["AmxK07WhV9G+32cKcg2VKmJ/JVuMhpJRJnItODvGsxJ/1AMOc1PLoVfhOjXSplbru0pYAk5+L/HKwvGK5YeXQQQAAABzeyJvcmlnaW4iOiJjaHJvbWUtZXh0ZW5zaW9uOi8vYmNqamxhZGdoZWNobG9pY2JkZmVkY2xmZm5kbmZmbWkiLCJmZWF0dXJlIjoiQUlTdW1tYXJpemF0aW9uQVBJIiwiZXhwaXJ5IjoxNzYwNDAwMDAwfQ=="]
 }
