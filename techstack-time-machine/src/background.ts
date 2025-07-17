@@ -40,7 +40,7 @@ chrome.runtime.onInstalled.addListener(() => {
 
 const getOptions = () => ({
   sharedContext: `${currentLevel.context}. ${currentLevel.description}. ${currentLevel.details}`,
-  type: "tl;dr",
+  type: "tldr",
   format: "markdown",
   length: "medium"
 })

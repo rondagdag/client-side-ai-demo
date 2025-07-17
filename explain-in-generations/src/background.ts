@@ -45,7 +45,7 @@ chrome.runtime.onInstalled.addListener(() => {
 // These options configure how the AI explains the selected text
 const getOptions = () => ({
   sharedContext: `${currentLevel.context}. ${currentLevel.description}`,
-  type: "tl;dr",
+  type: "tldr",
   format: "plain-text",
   length: "medium"
 })
@@ -113,7 +113,7 @@ if ('Summarizer' in self) {
         } else {
           // API needs to download models first
           // @ts-expect-error new chrome feature
-          summarizer = await Summarizer.create(options);
+          summarizer = await Summarizer.create(getOptions());
           // Track and report download progress
           summarizer.addEventListener(
             "downloadprogress",
