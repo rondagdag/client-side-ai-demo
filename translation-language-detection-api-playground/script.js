@@ -4,7 +4,8 @@
  */
 
 (async () => {
-  if (!('ai' in self) || !('languageDetector' in self.ai)) {
+  // Check if the Language Detector API is supported
+  if (!('LanguageDetector' in self)) {
     document.querySelector('.not-supported-message').hidden = false;
     return;
   }
@@ -16,7 +17,29 @@
   const language = document.querySelector('select');
 
   form.style.visibility = 'visible';
-  const detector = await self.ai.languageDetector.create();
+  
+  // Create the language detector with proper availability check
+  const availability = await LanguageDetector.availability();
+  let detector;
+  
+  if (availability === 'unavailable') {
+    document.querySelector('.not-supported-message').hidden = false;
+    return;
+  }
+  
+  if (availability === 'available') {
+    detector = await LanguageDetector.create();
+  } else {
+    // Handle downloadable/downloading states
+    detector = await LanguageDetector.create({
+      monitor(m) {
+        m.addEventListener('downloadprogress', (e) => {
+          console.log(`Language Detector: Downloaded ${e.loaded * 100}%`);
+        });
+      },
+    });
+    await detector.ready;
+  }
 
   input.addEventListener('input', async () => {
     if (!input.value.trim()) {
@@ -43,7 +66,7 @@
     return displayNames.of(languageTag);
   };
 
-  if ('ai' in self && 'translator' in self.ai) {
+  if ('Translator' in self) {
     document.querySelectorAll('[hidden]:not(.not-supported-message)').forEach((el) => {
       el.removeAttribute('hidden');
     });
@@ -56,10 +79,39 @@
           output.textContent = 'Currently, only English ↔ Spanish and English ↔ Japanese are supported.';
           return;
         }
-        const translator = await self.ai.translator.create({
+        
+        // Check if the translation pair is available
+        const translatorAvailability = await Translator.availability({
           sourceLanguage,
           targetLanguage: language.value,
         });
+        
+        if (translatorAvailability === 'unavailable') {
+          output.textContent = 'Translation not available for this language pair.';
+          return;
+        }
+        
+        let translator;
+        if (translatorAvailability === 'available') {
+          translator = await Translator.create({
+            sourceLanguage,
+            targetLanguage: language.value,
+          });
+        } else {
+          // Handle downloadable/downloading states
+          translator = await Translator.create({
+            sourceLanguage,
+            targetLanguage: language.value,
+            monitor(m) {
+              m.addEventListener('downloadprogress', (e) => {
+                console.log(`Translator: Downloaded ${e.loaded * 100}%`);
+                output.textContent = `Downloading translation model... ${(e.loaded * 100).toFixed(1)}%`;
+              });
+            },
+          });
+          await translator.ready;
+        }
+        
         output.textContent = await translator.translate(input.value.trim());
       } catch (err) {
         output.textContent = 'An error occurred. Please try again.';
