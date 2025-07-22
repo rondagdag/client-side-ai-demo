@@ -48,42 +48,29 @@ document.addEventListener('keyup', (e) => {
   }
 });
 
-/*
- * Creates a summarization session. If the model has already been downloaded, this function will
+// Add type declarations for the Summarizer API
+declare global {
+  interface Window {
+    Summarizer: {
+      availability(): Promise<'unavailable' | 'downloadable' | 'downloading' | 'available'>;
+      create(options?: {
+        type?: AISummarizerType;
+        format?: AISummarizerFormat;
+        length?: AISummarizerLength;
+        monitor?: (m: any) => void;
+      }): Promise<any>;
+    };
+  }
+}
+
 /*
  * Checks if the device supports the Summarizer API (rather than if the browser supports the API).
  * This method returns `true` when the device is capable of running the Summarizer API and `false`
  * when it is not.
- *
- * Ideally this check would only require the code code section below:
- *
- * ```javascript
- * let capabilites = await self.ai.summarizer.capabilities();
- * if (capabilites.available === 'readily' || capabilites.available === 'after-download') {
- *   return true;
- * }
- * ```
- *
- * However, due to https://crbug.com/379074334, the API may return `no` when
- * `self.ai.summarizer.create()` was never called, so this function implements a workaround for
- * this scenario, ensuring `create()` is called at least once before returning `false`.
  */
 const checkSummarizerSupport = async (): Promise<boolean> => {
-  // Do a first capabilities check. If 'no' is returned, it might mean the model hasn't been
-  // bootstrapped by calling `create()`. In this case, `create()` is called, which should result
-  // in an exception being raised. The exception is ignored, but now `capabilities()` should
-  // reflect the actual state of the API, with `no` meaning the device is unable to run the API.
-  let capabilites = await self.ai.summarizer.capabilities();
-  if (capabilites.available === 'readily' || capabilites.available === 'after-download') {
-    return true;
-  }
-
-  try {
-    await self.ai.summarizer.create();
-  } catch (e) { }
-
-  capabilites = await self.ai.summarizer.capabilities();
-  return capabilites.available !== 'no';
+  const availability = await self.Summarizer.availability();
+  return availability !== 'unavailable';
 }
 
 let timeout: number | undefined = undefined;
@@ -109,7 +96,7 @@ async function createSummarizationSession(
   format: AISummarizerFormat,
   length: AISummarizerLength
 ) {
-  return await self.ai.summarizer.create({
+  return await self.Summarizer.create({
     type,
     format,
     length
@@ -122,7 +109,9 @@ async function createSummarizationSession(
  * able to run it before setting up the listeners to summarize the input added to the textarea.
  */
 const initializeApplication = async () => {
-  const summarizationApiAvailable = self.ai !== undefined && self.ai.summarizer !== undefined;
+  // Check if the Summarizer API is supported by the browser
+  const summarizationApiAvailable = 'Summarizer' in self;
+
   if (!summarizationApiAvailable) {
     summarizationUnavailableDialog.style.display = 'block';
     return;
