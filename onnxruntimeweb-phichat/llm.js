@@ -130,7 +130,7 @@ export class LLM {
         }
         this.feed = {};
         // key value cache is zero copy, just pass gpu buffer as referece
-        const empty = (this.dtype === "float16") ? new Uint16Array() : [];
+        const empty = (this.dtype === "float16") ? new Float16Array() : [];
         for (let i = 0; i < this.num_layers; ++i) {
             this.feed[`past_key_values.${i}.key`] = new ort.Tensor(this.dtype, empty, this.kv_dims)
             this.feed[`past_key_values.${i}.value`] = new ort.Tensor(this.dtype, empty, this.kv_dims)
